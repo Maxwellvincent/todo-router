@@ -11,7 +11,7 @@ describe('Todo API:', function () {
     { "title": "Make Bed", "completed": false }
   ]
 
-  before('make knex instance', () => {  
+  before('make knex instance',() => {  
     db = knex({
       client: 'pg',
       connection: process.env.TEST_DB_URL,
@@ -19,9 +19,13 @@ describe('Todo API:', function () {
     app.set('db', db)
   });
   
-  before('cleanup', () => db.raw('TRUNCATE TABLE todo RESTART IDENTITY;'));
+  before('cleanup', () => {
+    db.raw('TRUNCATE TABLE todo RESTART IDENTITY;') 
+    });
 
-  afterEach('cleanup', () => db.raw('TRUNCATE TABLE todo RESTART IDENTITY;')); 
+  afterEach('cleanup', () => {
+    db.raw('TRUNCATE TABLE todo RESTART IDENTITY;')
+    }); 
 
   after('disconnect from the database', () => db.destroy()); 
 
